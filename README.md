@@ -1,36 +1,108 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AR Partition App
 
-## Getting Started
+WebXRとNext.jsを使用したAR（拡張現実）パーティション配置アプリケーション。実空間に仮想的な直方体型パーティションを配置・調整できます。
 
-First, run the development server:
+## 🚀 機能
+
+- **WebXR AR機能**: スマートフォンやタブレットでAR体験
+- **インタラクティブな配置**: タップで選択、ドラッグで移動
+- **リアルタイムサイズ調整**: 幅・高さ・厚さの動的変更
+- **複数パーティション管理**: 追加・削除・個別調整
+- **視覚的フィードバック**: 選択状態の表示、サイズ情報の表示
+
+## 🛠️ 技術スタック
+
+- **フレームワーク**: Next.js 15 (App Router)
+- **言語**: TypeScript
+- **3D描画**: Three.js
+- **WebXR**: @react-three/xr
+- **UI**: Tailwind CSS
+- **状態管理**: React Hooks
+
+## 📋 必要条件
+
+- Node.js 18.0.0 以上
+- npm または yarn
+- WebXR対応デバイス（Android Chrome, iOS Safari など）
+- HTTPS環境（WebXR使用時）
+
+## 🔧 セットアップ
+
+### 1. リポジトリのクローン
+
+```bash
+git clone <repository-url>
+cd ar-partition-app
+```
+
+### 2. 依存関係のインストール
+
+```bash
+npm install
+```
+
+### 3. 開発サーバーの起動
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+ブラウザで `http://localhost:3000` を開きます。
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 4. HTTPS環境での実行（WebXR使用時）
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+WebXR機能を使用するには、HTTPS環境が必要です：
 
-## Learn More
+```bash
+npm run dev -- --experimental-https
+```
 
-To learn more about Next.js, take a look at the following resources:
+または、`package.json`のスクリプトを変更：
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```json
+{
+  "scripts": {
+    "dev": "next dev --experimental-https"
+  }
+}
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 📱 使用方法
 
-## Deploy on Vercel
+### 基本操作
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. **AR開始**: 右上の「Enter AR」ボタンをタップ
+2. **パーティション選択**: 3D空間のパーティションをタップして選択
+3. **位置調整**: 選択したパーティションをドラッグして移動
+4. **サイズ調整**: 左側のコントロールパネルで数値を変更
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### コントロールパネル
+
+- **パーティション追加**: 新しいパーティションを追加
+- **削除**: 不要なパーティションを削除
+- **サイズ調整**: 幅・高さ・厚さを0.1m単位で調整
+
+### ARモード
+
+- デバイスを移動して視点を変更
+- 実空間にパーティションがオーバーレイ表示
+- タップ操作でパーティションを選択・移動
+
+## 🏗️ プロジェクト構造
+
+```
+src/
+├── app/
+│   ├── layout.tsx          # ルートレイアウト
+│   ├── page.tsx            # メインページ
+│   └── globals.css         # グローバルスタイル
+├── components/
+│   ├── ARPartition.tsx     # ARパーティションコンポーネント
+│   ├── ARScene.tsx         # ARシーンコンポーネント
+│   ├── ControlPanel.tsx    # コントロールパネル
+│   └── InstructionPanel.tsx # 使用方法パネル
+├── hooks/
+│   └── usePartitions.ts    # パーティション状態管理
+└── types/
+    └── partition.ts        # TypeScript型定義
+```
